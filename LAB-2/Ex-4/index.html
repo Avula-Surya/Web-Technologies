@@ -1,39 +1,93 @@
-<h2>LocalStorage User Management System</h2>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LocalStorage User Management</title>
+    <style>
+      body {
+        font-family: Arial;
+        text-align: center;
+      }
+      .box {
+        width: 400px;
+        margin: auto;
+        padding: 30px;
+        background: #fff;
+        border-radius: 8px;
+      }
+      input {
+        width: 90%;
+        padding: 10px;
+        margin: 10px 0;
+      }
+      button {
+        padding: 8px 20px;
+      }
+      table {
+        width: 90%;
+        margin: 30px auto;
+        border-collapse: collapse;
+      }
+      th {
+        background: #333;
+        color: white;
+        padding: 10px;
+      }
+      td {
+        padding: 8px;
+        text-align: center;
+      }
+      .clear {
+        background: red;
+        color: white;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
 
-<form id="registerForm">
-  <input type="text" id="name" placeholder="Name" required />
-  <input type="email" id="email" placeholder="Email" required />
+  <body>
+    <h1>LocalStorage User Management System</h1>
 
-  <input
-    type="text"
-    id="mobile"
-    placeholder="Mobile number must be 10 digits"
-    maxlength="10"
-    required
-  />
+    <div class="box">
+      <form id="registerForm">
+        <input type="text" id="name" placeholder="Name" required />
+        <input type="email" id="email" placeholder="Email" required />
 
-  <input
-    type="password"
-    id="password"
-    placeholder="Password must be minimum 6 characters"
-    required
-  />
+        <input
+          type="text"
+          id="mobile"
+          placeholder="Mobile number must be 10 digits"
+          maxlength="10"
+          required
+        />
 
-  <button type="submit">Register</button>
-</form>
+        <input
+          type="password"
+          id="password"
+          placeholder="Password must be minimum 6 characters"
+          required
+        />
 
-<h3>Registered Users</h3>
+        <br /><br />
+        <button type="submit">Register</button>
+      </form>
+    </div>
 
-<table border="1" width="100%">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Mobile</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody id="userTable"></tbody>
-</table>
+    <h2>Registered Users</h2>
 
-<button onclick="clearAllUsers()">Clear All Users</button>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="userTable"></tbody>
+    </table>
+
+    <button class="clear" onclick="clearAllUsers()">Clear All Users</button>
+
+    <script src="script.js"></script>
+  </body>
+</html>
