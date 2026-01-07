@@ -1,38 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>User Management System</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>LocalStorage User Management System</h1>
+<h2>LocalStorage User Management System</h2>
 
-    <!-- Registration Form -->
-    <form id="userForm" onsubmit="registerUser(event)">
-      <input type="text" id="name" placeholder="Name" />
-      <input type="email" id="email" placeholder="Email" />
-      <input type="text" id="mobile" placeholder="Mobile Number" />
-      <input type="password" id="password" placeholder="Password" />
-      <button type="submit">Register</button>
-    </form>
+<form id="registerForm">
+  <input type="text" id="name" placeholder="Name" required />
+  <input type="email" id="email" placeholder="Email" required />
 
-    <!-- User Table -->
-    <h2>Registered Users</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Mobile</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="userTable"></tbody>
-    </table>
+  <input
+    type="text"
+    id="mobile"
+    placeholder="Mobile number must be 10 digits"
+    maxlength="10"
+    required
+  />
 
-    <button class="clear-btn" onclick="clearAllUsers()">Clear All Users</button>
+  <input
+    type="password"
+    id="password"
+    placeholder="Password must be minimum 6 characters"
+    required
+  />
 
-    <script src="script.js"></script>
-  </body>
-</html>
+  <button type="submit">Register</button>
+</form>
+
+<h3>Registered Users</h3>
+
+<table border="1" width="100%">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Mobile</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody id="userTable"></tbody>
+</table>
+
+<button onclick="clearAllUsers()">Clear All Users</button>

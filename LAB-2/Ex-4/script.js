@@ -1,7 +1,7 @@
 const form = document.getElementById("registerForm");
 const userTable = document.getElementById("userTable");
 
-// Load users when page loads
+// Load users on page load
 document.addEventListener("DOMContentLoaded", displayUsers);
 
 // Register user
@@ -13,6 +13,7 @@ form.addEventListener("submit", function (e) {
     const mobile = document.getElementById("mobile").value.trim();
     const password = document.getElementById("password").value;
 
+    // Validation
     if (mobile.length !== 10) {
         alert("Mobile number must be 10 digits");
         return;
@@ -23,7 +24,7 @@ form.addEventListener("submit", function (e) {
         return;
     }
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
     users.push({ name, email, mobile });
 
@@ -33,13 +34,13 @@ form.addEventListener("submit", function (e) {
     displayUsers();
 });
 
-// Display users in table
+// Display users
 function displayUsers() {
     const users = JSON.parse(localStorage.getItem("users")) || [];
     userTable.innerHTML = "";
 
     users.forEach((user, index) => {
-        const row = `
+        userTable.innerHTML += `
             <tr>
                 <td>${user.name}</td>
                 <td>${user.email}</td>
@@ -49,13 +50,12 @@ function displayUsers() {
                 </td>
             </tr>
         `;
-        userTable.innerHTML += row;
     });
 }
 
 // Delete user
 function deleteUser(index) {
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    let users = JSON.parse(localStorage.getItem("users")) || [];
     users.splice(index, 1);
     localStorage.setItem("users", JSON.stringify(users));
     displayUsers();
