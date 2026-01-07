@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>HTML5 Audio and Video</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      video,
+      audio {
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>🎵 Audio Player</h2>
+    <audio id="audioPlayer" controls>
+      <source src="sample.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+    <p>Current Time: <span id="audioTime">0:00</span></p>
+
+    <hr />
+
+    <h2>🎬 Video Player</h2>
+    <video id="videoPlay" width="400" controls>
+      <source src="videoplay.mp4" type="video/mp4" />
+      Your browser does not support the video element.
+    </video>
+    <p>Current Time: <span id="videoTime">0:00</span></p>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>
