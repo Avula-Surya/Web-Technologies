@@ -1,30 +1,68 @@
-const mobileInput = document.getElementById("mobile");
-const passwordInput = document.getElementById("password");
+const form = document.getElementById("registerForm");
+const userTable = document.getElementById("userTable");
 
-// Set default placeholders
-mobileInput.placeholder = "Mobile number must be 10 digits";
-passwordInput.placeholder = "Password must be minimum 6 characters";
+// Load users when page loads
+document.addEventListener("DOMContentLoaded", displayUsers);
 
-// Mobile validation
-mobileInput.addEventListener("input", () => {
-    mobileInput.value = mobileInput.value.replace(/\D/g, "");
+// Register user
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    if (mobileInput.value.length !== 10) {
-        mobileInput.style.border = "2px solid red";
-        mobileInput.title = "Mobile number must be 10 digits";
-    } else {
-        mobileInput.style.border = "2px solid green";
-        mobileInput.title = "";
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const mobile = document.getElementById("mobile").value.trim();
+    const password = document.getElementById("password").value;
+
+    if (mobile.length !== 10) {
+        alert("Mobile number must be 10 digits");
+        return;
     }
+
+    if (password.length < 6) {
+        alert("Password must be minimum 6 characters");
+        return;
+    }
+
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    users.push({ name, email, mobile });
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    form.reset();
+    displayUsers();
 });
 
-// Password validation
-passwordInput.addEventListener("input", () => {
-    if (passwordInput.value.length < 6) {
-        passwordInput.style.border = "2px solid red";
-        passwordInput.title = "Password must be minimum 6 characters";
-    } else {
-        passwordInput.style.border = "2px solid green";
-        passwordInput.title = "";
-    }
-});
+// Display users in table
+function displayUsers() {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    userTable.innerHTML = "";
+
+    users.forEach((user, index) => {
+        const row = `
+            <tr>
+                <td>${user.name}</td>
+                <td>${user.email}</td>
+                <td>${user.mobile}</td>
+                <td>
+                    <button onclick="deleteUser(${index})">Delete</button>
+                </td>
+            </tr>
+        `;
+        userTable.innerHTML += row;
+    });
+}
+
+// Delete user
+function deleteUser(index) {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    users.splice(index, 1);
+    localStorage.setItem("users", JSON.stringify(users));
+    displayUsers();
+}
+
+// Clear all users
+function clearAllUsers() {
+    localStorage.removeItem("users");
+    displayUsers();
+}
