@@ -4,31 +4,42 @@ const ctx = canvas.getContext("2d");
 // Clear canvas
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// Common vertical alignment
+// Common values
+const shapeSize = 80;
 const topY = 60;
-const centerY = 80;
-const lineY = 180;
+const margin = 60;
 
-// 1️⃣ Filled Rectangle (Left)
+// 1️⃣ Rectangle (LEFT)
 ctx.fillStyle = "blue";
-ctx.fillRect(80, topY, 120, 80);
+ctx.fillRect(
+    margin,
+    topY,
+    shapeSize,
+    shapeSize
+);
 
-// 2️⃣ Filled Circle (Center)
+// 2️⃣ Circle (RIGHT) — same size as rectangle
 ctx.beginPath();
-ctx.arc(250, centerY, 40, 0, 2 * Math.PI);
+ctx.arc(
+    canvas.width - margin - shapeSize / 2,
+    topY + shapeSize / 2,
+    shapeSize / 2,
+    0,
+    2 * Math.PI
+);
 ctx.fillStyle = "red";
 ctx.fill();
 
 // 3️⃣ Straight Line (Centered & Even)
 ctx.beginPath();
-ctx.moveTo(80, lineY);
-ctx.lineTo(420, lineY);
+ctx.moveTo(margin, 180);
+ctx.lineTo(canvas.width - margin, 180);
 ctx.strokeStyle = "green";
 ctx.lineWidth = 3;
 ctx.stroke();
 
-// 4️⃣ Text (Centered)
+// 4️⃣ Centered Text
 ctx.font = "24px Arial";
 ctx.fillStyle = "white";
 ctx.textAlign = "center";
-ctx.fillText("HTML5 Canvas", 250, 250);
+ctx.fillText("HTML5 Canvas", canvas.width / 2, 250);
