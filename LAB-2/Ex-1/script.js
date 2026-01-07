@@ -1,45 +1,30 @@
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
-// Clear canvas
-ctx.clearRect(0, 0, canvas.width, canvas.height);
+// Make sure canvas has size (important)
+canvas.width = 600;
+canvas.height = 300;
 
-// Common values
-const shapeSize = 80;
-const topY = 60;
-const margin = 60;
-
-// 1️⃣ Rectangle (LEFT)
+// Bigger Rectangle (left)
 ctx.fillStyle = "blue";
-ctx.fillRect(
-    margin,
-    topY,
-    shapeSize,
-    shapeSize
-);
+ctx.fillRect(50, 60, 120, 120);
 
-// 2️⃣ Circle (RIGHT) — same size as rectangle
+// Bigger Circle (right)
 ctx.beginPath();
-ctx.arc(
-    canvas.width - margin - shapeSize / 2,
-    topY + shapeSize / 2,
-    shapeSize / 2,
-    0,
-    2 * Math.PI
-);
+ctx.arc(450, 120, 60, 0, 2 * Math.PI);
 ctx.fillStyle = "red";
 ctx.fill();
 
-// 3️⃣ Straight Line (Centered & Even)
+// Line (middle)
 ctx.beginPath();
-ctx.moveTo(margin, 180);
-ctx.lineTo(canvas.width - margin, 180);
+ctx.moveTo(40, 200);
+ctx.lineTo(560, 200);
 ctx.strokeStyle = "green";
-ctx.lineWidth = 3;
+ctx.lineWidth = 4;
 ctx.stroke();
 
-// 4️⃣ Centered Text
+// Text (visible & centered)
 ctx.font = "24px Arial";
-ctx.fillStyle = "white";
+ctx.fillStyle = "purple";
 ctx.textAlign = "center";
-ctx.fillText("HTML5 Canvas", canvas.width / 2, 250);
+ctx.fillText("HTML5 Canvas", canvas.width / 2, 260);
