@@ -1,26 +1,34 @@
-// Get canvas and context
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
-// 1. Draw filled rectangle
-ctx.fillStyle = "blue";
-ctx.fillRect(20, 20, 120, 80);
+// Clear canvas
+ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// 2. Draw filled circle
+// Common vertical alignment
+const topY = 60;
+const centerY = 80;
+const lineY = 180;
+
+// 1️⃣ Filled Rectangle (Left)
+ctx.fillStyle = "blue";
+ctx.fillRect(80, topY, 120, 80);
+
+// 2️⃣ Filled Circle (Center)
 ctx.beginPath();
-ctx.arc(250, 80, 40, 0, 2 * Math.PI);
+ctx.arc(250, centerY, 40, 0, 2 * Math.PI);
 ctx.fillStyle = "red";
 ctx.fill();
 
-// 3. Draw straight line
+// 3️⃣ Straight Line (Centered & Even)
 ctx.beginPath();
-ctx.moveTo(50, 200);
-ctx.lineTo(450, 200);
+ctx.moveTo(80, lineY);
+ctx.lineTo(420, lineY);
 ctx.strokeStyle = "green";
 ctx.lineWidth = 3;
 ctx.stroke();
 
-// 4. Draw text
+// 4️⃣ Text (Centered)
 ctx.font = "24px Arial";
-ctx.fillStyle = "black";
-ctx.fillText("HTML5 Canvas", 160, 260);
+ctx.fillStyle = "white";
+ctx.textAlign = "center";
+ctx.fillText("HTML5 Canvas", 250, 250);
