@@ -1,0 +1,63 @@
+body {
+    background: #f0f4ff;
+    font-family: Arial;
+}
+
+.container {
+    width: 700px;
+    margin: 25px auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+}
+
+h2, h3 {
+    text-align: center;
+}
+
+.product, .cart-item {
+    border: 1px solid #bbb;
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    padding: 6px 12px;
+    background: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button.remove {
+    background: #d62828;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+input[type="number"] {
+    width: 70px;
+}
+
+.couponBox {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.couponBox input {
+    padding: 8px;
+    width: 220px;
+}
+
+small {
+    color: green;
+    font-size: 13px;
+}

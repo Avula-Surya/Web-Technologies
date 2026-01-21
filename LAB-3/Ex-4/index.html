@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Activity Monitor</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Real-Time User Activity Monitor</h2>
+
+      <p>
+        Click around, type something, focus inputs, and see logs in real time.
+      </p>
+
+      <input type="text" id="inputBox" placeholder="Type here..." />
+      <button id="sampleBtn">Sample Button</button>
+
+      <h3>Activity Log</h3>
+      <div id="logBox"></div>
+
+      <div class="controls">
+        <button id="resetBtn">Reset Log</button>
+        <button id="exportBtn">Export Log</button>
+      </div>
+
+      <p id="warning" class="warning"></p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
