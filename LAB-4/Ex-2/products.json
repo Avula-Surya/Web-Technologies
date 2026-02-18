@@ -1,0 +1,9 @@
+{
+  "products": [
+    { "name": "iPhone 15", "price": 799, "category": "Electronics" },
+    { "name": "Samsung Galaxy S24", "price": 750, "category": "Electronics" },
+    { "name": "Nike Running Shoes", "price": 120, "category": "Footwear" },
+    { "name": "Dell Laptop", "price": 950, "category": "Computers" },
+    { "name": "Wooden Study Table", "price": 200, "category": "Furniture" }
+  ]
+}

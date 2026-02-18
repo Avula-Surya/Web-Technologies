@@ -1,0 +1,7 @@
+{
+  "users": [
+    { "username": "abc@xyz" },
+    { "username": "admin@123" },
+    { "username": "surya@456" }
+  ]
+}
