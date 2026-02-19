@@ -1,0 +1,23 @@
+[
+  {
+    "id": "101",
+    "name": "Laptop",
+    "category": "Electronics",
+    "price": 55000,
+    "stock": 8
+  },
+  {
+    "id": "102",
+    "name": "Keyboard",
+    "category": "Electronics",
+    "price": 800,
+    "stock": 50
+  },
+  {
+    "id": "103",
+    "name": "Notebook",
+    "category": "Stationery",
+    "price": 40,
+    "stock": 120
+  }
+]

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<library>
+    <book>
+        <id>1</id>
+        <title>Data Structures</title>
+        <author>Mark Allen Weiss</author>
+        <status>Available</status>
+    </book>
+
+    <book>
+        <id>2</id>
+        <title>Artificial Intelligence</title>
+        <author>Stuart Russell</author>
+        <status>Not Available</status>
+    </book>
+</library>

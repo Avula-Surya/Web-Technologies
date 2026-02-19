@@ -1,0 +1,353 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Library Book Tracker</title>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+        color: white;
+      }
+
+      .container {
+        width: 95%;
+        max-width: 1100px;
+        margin: 50px auto;
+        padding: 30px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      input,
+      select {
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+        width: 200px;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+      }
+
+      input::placeholder {
+        color: #ddd;
+      }
+
+      input:focus,
+      select:focus {
+        outline: none;
+        background: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 0 8px #00c6ff;
+      }
+
+      button {
+        padding: 10px 18px;
+        border-radius: 30px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      .add {
+        background: #00c853;
+        color: white;
+      }
+      .update {
+        background: #ff9800;
+        color: white;
+      }
+      .delete {
+        background: #e53935;
+        color: white;
+      }
+
+      button:hover {
+        transform: scale(1.05);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 25px;
+        border-radius: 15px;
+        overflow: hidden;
+      }
+
+      th {
+        background: rgba(0, 0, 0, 0.6);
+        padding: 12px;
+      }
+
+      td {
+        padding: 12px;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      tr:hover td {
+        background: rgba(255, 255, 255, 0.2);
+        cursor: pointer;
+      }
+
+      .available {
+        color: #00e676;
+        font-weight: bold;
+      }
+      .not-available {
+        color: #ff5252;
+        font-weight: bold;
+      }
+
+      #message {
+        text-align: center;
+        margin-top: 15px;
+        font-weight: bold;
+      }
+
+      .success {
+        color: #00e676;
+      }
+      .error {
+        color: #ff5252;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>📚 Library Book Tracker</h2>
+
+      <div class="form-group">
+        <input type="text" id="bookId" placeholder="Book ID" />
+        <input type="text" id="title" placeholder="Title" />
+        <input type="text" id="author" placeholder="Author" />
+
+        <select id="status">
+          <option value="">Select Status</option>
+          <option>Available</option>
+          <option>Not Available</option>
+        </select>
+
+        <button class="add" onclick="addBook()">Add</button>
+        <button class="update" onclick="updateBook()">Update</button>
+        <button class="delete" onclick="deleteBook()">Delete</button>
+      </div>
+
+      <p id="message"></p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="bookTable"></tbody>
+      </table>
+    </div>
+
+    <script>
+      let xmlDoc;
+
+      // LOAD XML
+      function loadBooks() {
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "books.xml", true);
+
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            xmlDoc = xhr.responseXML;
+            if (!xmlDoc) {
+              showMessage("Malformed XML!", "error");
+              return;
+            }
+            displayBooks();
+          } else {
+            showMessage("Failed to load XML!", "error");
+          }
+        };
+
+        xhr.send();
+      }
+
+      // DISPLAY
+      function displayBooks() {
+        const table = document.getElementById("bookTable");
+        table.innerHTML = "";
+
+        const books = xmlDoc.getElementsByTagName("book");
+
+        for (let i = 0; i < books.length; i++) {
+          const id = books[i].getElementsByTagName("id")[0].textContent;
+          const titleVal =
+            books[i].getElementsByTagName("title")[0].textContent;
+          const authorVal =
+            books[i].getElementsByTagName("author")[0].textContent;
+          const statusVal =
+            books[i].getElementsByTagName("status")[0].textContent;
+
+          const statusClass =
+            statusVal === "Available" ? "available" : "not-available";
+
+          const row = `
+            <tr onclick="fillFields('${id}','${titleVal}','${authorVal}','${statusVal}')">
+                <td>${id}</td>
+                <td>${titleVal}</td>
+                <td>${authorVal}</td>
+                <td class="${statusClass}">${statusVal}</td>
+            </tr>
+        `;
+
+          table.innerHTML += row;
+        }
+      }
+
+      // FILL FIELDS
+      function fillFields(id, titleVal, authorVal, statusVal) {
+        bookId.value = id;
+        title.value = titleVal;
+        author.value = authorVal;
+        status.value = statusVal;
+      }
+
+      // VALIDATION
+      function validate(requireAll = true) {
+        if (!bookId.value.trim()) {
+          showMessage("Book ID required!", "error");
+          return false;
+        }
+
+        if (
+          requireAll &&
+          (!title.value.trim() || !author.value.trim() || !status.value)
+        ) {
+          showMessage("All fields required!", "error");
+          return false;
+        }
+
+        return true;
+      }
+
+      // ADD BOOK (Proper DOM Method)
+      function addBook() {
+        if (!validate(true)) return;
+
+        const books = xmlDoc.getElementsByTagName("book");
+
+        for (let i = 0; i < books.length; i++) {
+          if (
+            books[i].getElementsByTagName("id")[0].textContent === bookId.value
+          ) {
+            showMessage("Book ID already exists!", "error");
+            return;
+          }
+        }
+
+        const newBook = xmlDoc.createElement("book");
+
+        const idNode = xmlDoc.createElement("id");
+        idNode.textContent = bookId.value;
+
+        const titleNode = xmlDoc.createElement("title");
+        titleNode.textContent = title.value;
+
+        const authorNode = xmlDoc.createElement("author");
+        authorNode.textContent = author.value;
+
+        const statusNode = xmlDoc.createElement("status");
+        statusNode.textContent = status.value;
+
+        newBook.appendChild(idNode);
+        newBook.appendChild(titleNode);
+        newBook.appendChild(authorNode);
+        newBook.appendChild(statusNode);
+
+        xmlDoc.getElementsByTagName("library")[0].appendChild(newBook);
+
+        displayBooks();
+        clearFields();
+        showMessage("Book added successfully!", "success");
+      }
+
+      // UPDATE STATUS
+      function updateBook() {
+        if (!validate(false)) return;
+
+        const books = xmlDoc.getElementsByTagName("book");
+
+        for (let i = 0; i < books.length; i++) {
+          if (
+            books[i].getElementsByTagName("id")[0].textContent === bookId.value
+          ) {
+            books[i].getElementsByTagName("status")[0].textContent =
+              status.value;
+            displayBooks();
+            clearFields();
+            showMessage("Status updated!", "success");
+            return;
+          }
+        }
+
+        showMessage("Book not found!", "error");
+      }
+
+      // DELETE
+      function deleteBook() {
+        if (!validate(false)) return;
+
+        const books = xmlDoc.getElementsByTagName("book");
+
+        for (let i = 0; i < books.length; i++) {
+          if (
+            books[i].getElementsByTagName("id")[0].textContent === bookId.value
+          ) {
+            books[i].parentNode.removeChild(books[i]);
+            displayBooks();
+            clearFields();
+            showMessage("Book deleted!", "success");
+            return;
+          }
+        }
+
+        showMessage("Book not found!", "error");
+      }
+
+      // CLEAR
+      function clearFields() {
+        bookId.value = "";
+        title.value = "";
+        author.value = "";
+        status.value = "";
+      }
+
+      // MESSAGE
+      function showMessage(msg, type) {
+        const message = document.getElementById("message");
+        message.textContent = msg;
+        message.className = type;
+      }
+
+      window.onload = loadBooks;
+    </script>
+  </body>
+</html>
