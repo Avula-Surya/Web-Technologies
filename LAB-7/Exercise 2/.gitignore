@@ -1,0 +1,25 @@
+# Node.js dependencies (DO NOT UPLOAD THIS)
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+logs/
+*.log
+
+# Environment variables
+.env
+.env.local
+
+# OS Metadata
+.DS_Store
+Thumbs.db
+
+# IDE Settings
+.vscode/
+.idea/
+
+# Local database data (if using a local dump)
+dump/
+data/

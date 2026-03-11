@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>BookVault | Smart Finder</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0b0e14;
+        --glass: rgba(30, 41, 59, 0.7);
+        --accent: #6366f1;
+        --accent-glow: rgba(99, 102, 241, 0.4);
+        --text-main: #f1f5f9;
+        --text-dim: #94a3b8;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background: var(--bg);
+        background-image:
+          radial-gradient(circle at 0% 0%, #1e1b4b 0%, transparent 25%),
+          radial-gradient(circle at 100% 100%, #1e1b4b 0%, transparent 25%);
+        color: var(--text-main);
+        margin: 0;
+        display: flex;
+        min-height: 100vh;
+      }
+
+      /* Sidebar Styling */
+      .sidebar {
+        width: 280px;
+        background: var(--glass);
+        backdrop-filter: blur(12px);
+        border-right: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        position: fixed;
+        height: 100vh;
+        box-sizing: border-box;
+      }
+
+      .sidebar h2 {
+        font-weight: 800;
+        font-size: 1.5rem;
+        margin-bottom: 30px;
+        letter-spacing: -1px;
+      }
+      .sidebar h2 span {
+        color: var(--accent);
+      }
+
+      .filter-group {
+        margin-bottom: 25px;
+      }
+      label {
+        display: block;
+        font-size: 11px;
+        font-weight: 800;
+        color: var(--text-dim);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 12px;
+        border-radius: 10px;
+        color: white;
+        font-size: 14px;
+        transition: 0.3s;
+      }
+
+      input:focus {
+        border-color: var(--accent);
+        outline: none;
+        box-shadow: 0 0 15px var(--accent-glow);
+      }
+
+      .btn-action {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        background: var(--accent);
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: 0.3s;
+      }
+      .btn-action:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px var(--accent-glow);
+      }
+
+      /* Main Content */
+      .content {
+        margin-left: 280px;
+        padding: 50px;
+        width: 100%;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 25px;
+      }
+
+      .book-card {
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 25px;
+        border-radius: 20px;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .book-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--accent);
+        background: rgba(30, 41, 59, 0.9);
+      }
+
+      .category-tag {
+        font-size: 10px;
+        font-weight: 800;
+        background: var(--accent-glow);
+        color: #a5b4fc;
+        padding: 4px 10px;
+        border-radius: 20px;
+        text-transform: uppercase;
+      }
+
+      .book-card h3 {
+        margin: 15px 0 5px;
+        font-size: 18px;
+      }
+      .book-card p {
+        color: var(--text-dim);
+        font-size: 13px;
+        margin: 0;
+      }
+
+      .card-footer {
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .price {
+        font-weight: 800;
+        font-size: 18px;
+        color: var(--accent);
+      }
+      .rating {
+        font-size: 13px;
+        color: #fbbf24;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .load-more-container {
+        text-align: center;
+        margin-top: 50px;
+      }
+      .btn-more {
+        background: transparent;
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        padding: 12px 40px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+      .btn-more:hover {
+        background: var(--accent);
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar">
+      <h2>Book<span>Vault</span></h2>
+
+      <div class="filter-group">
+        <label>Live Search</label>
+        <input
+          type="text"
+          id="searchInp"
+          placeholder="Enter title..."
+          oninput="searchBooks()"
+        />
+      </div>
+
+      <div class="filter-group">
+        <label>Category</label>
+        <select id="catSel" onchange="filterCategory()">
+          <option value="">All Genres</option>
+          <option value="Programming">Programming</option>
+          <option value="Fiction">Fiction</option>
+          <option value="Science">Science</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label>Sort Results</label>
+        <button class="btn-action" onclick="sortBooks('price')">
+          Price: Low → High
+        </button>
+        <button
+          class="btn-action"
+          style="background: rgba(255, 255, 255, 0.05); color: #fff"
+          onclick="sortBooks('rating')"
+        >
+          Top Rated First
+        </button>
+      </div>
+
+      <button
+        class="btn-action"
+        style="background: #10b981; color: #000"
+        onclick="getTopRated()"
+      >
+        🎯 Best Sellers
+      </button>
+    </div>
+
+    <div class="content">
+      <div class="grid" id="bookGrid"></div>
+      <div class="load-more-container">
+        <button class="btn-more" onclick="loadMore()">Explore More</button>
+      </div>
+    </div>
+
+    <script>
+      const API = "http://localhost:3000/books";
+      let currentPage = 1;
+
+      async function render(url, append = false) {
+        const res = await fetch(url);
+        const books = await res.json();
+        const grid = document.getElementById("bookGrid");
+
+        const html = books
+          .map(
+            (b) => `
+            <div class="book-card">
+                <span class="category-tag">${b.category}</span>
+                <h3>${b.title}</h3>
+                <p>by ${b.author}</p>
+                <div class="card-footer">
+                    <span class="price">₹${b.price}</span>
+                    <span class="rating">⭐ ${b.rating}</span>
+                </div>
+            </div>
+        `,
+          )
+          .join("");
+
+        if (append) grid.innerHTML += html;
+        else grid.innerHTML = html;
+      }
+
+      // Logic Functions
+      function searchBooks() {
+        const title = document.getElementById("searchInp").value;
+        render(`${API}/search?title=${title}`);
+      }
+
+      function filterCategory() {
+        const cat = document.getElementById("catSel").value;
+        cat ? render(`${API}/category/${cat}`) : render(API);
+      }
+
+      function sortBooks(field) {
+        render(`${API}/sort/${field}`);
+      }
+
+      function getTopRated() {
+        render(`${API}/top`);
+      }
+
+      function loadMore() {
+        currentPage++;
+        render(`${API}?page=${currentPage}`, true);
+      }
+
+      // Initial Load
+      render(API);
+    </script>
+  </body>
+</html>
