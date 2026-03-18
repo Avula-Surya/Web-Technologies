@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Course Enrollment System</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        background: linear-gradient(135deg, #ff7e5f, #feb47b);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        width: 340px;
+        padding: 30px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        color: white;
+        text-align: center;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        font-size: 14px;
+      }
+
+      input::placeholder {
+        color: #eee;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 10px;
+        background: linear-gradient(45deg, #36d1dc, #5b86e5);
+        border: none;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .result {
+        margin-top: 15px;
+        padding: 12px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.35);
+        font-weight: bold;
+        line-height: 1.6;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Course Enrollment</h2>
+
+      <input type="text" id="course" placeholder="Enter Course Name" />
+      <input type="text" id="instructor" placeholder="Enter Instructor Name" />
+
+      <button onclick="enroll()">Enroll</button>
+
+      <div class="result" id="output"></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
