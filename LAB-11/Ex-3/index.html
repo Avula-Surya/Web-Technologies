@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Exercise 3</title>
+  </head>
+  <body>
+    <h1>Event Driven Programming</h1>
+    <button onclick="trigger()">Trigger Event</button>
+    <p id="output"></p>
+    <script>
+      function trigger() {
+        fetch("/event")
+          .then((res) => res.text())
+          .then((data) => {
+            document.getElementById("output").innerText = data;
+          });
+      }
+    </script>
+  </body>
+</html>

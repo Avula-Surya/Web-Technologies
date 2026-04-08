@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Exercise 2</title>
+  </head>
+  <body>
+    <h1>File Operations</h1>
+    <button onclick="run()">Run File Operations</button>
+    <pre id="output"></pre>
+    <script>
+      function run() {
+        fetch("/run")
+          .then((res) => res.text())
+          .then((data) => {
+            document.getElementById("output").innerText = data;
+          });
+      }
+    </script>
+  </body>
+</html>
